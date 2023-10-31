@@ -8,6 +8,7 @@ import {
   WiSnow,
   WiThunderstorm,
   WiDayHaze,
+  WiCloudy,
 } from 'react-icons/wi';
 import Grid from '@mui/material/Grid';
 
@@ -35,6 +36,8 @@ function WeatherDisplay({ weatherData, unitType }) {
         return <WiThunderstorm />;
       case 'Mist':
         return <WiDayHaze />;
+      case 'Clouds':
+        return <WiCloudy />;
       default:
         return <WiDaySunny />;
     }

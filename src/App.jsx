@@ -52,13 +52,13 @@ function App() {
         weatherData.weather[0].main
       );
     } else {
-      document.body.style = getBackgroundStyle('Mist');
-      document.documentElement.style = getBackgroundStyle('Mist');
+      document.body.style = getBackgroundStyle('Default');
+      document.documentElement.style = getBackgroundStyle('Default');
     }
   }, [weatherData.weather]);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <SearchBar
         location={location}
         setLocation={setLocation}
