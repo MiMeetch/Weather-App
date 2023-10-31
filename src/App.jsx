@@ -22,12 +22,28 @@ function App() {
   };
 
   useEffect(() => {
-    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=atlanta&units=${unitType}&appid=${API_KEY}`;
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => setWeatherData(data))
-      .catch((error) => console.error('Error fetching weather data:', error));
-  }, []);
+    const fetchWeatherDataByLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unitType}&appid=${API_KEY}`;
+            fetch(API_URL)
+              .then((response) => response.json())
+              .then((data) => setWeatherData(data))
+              .catch((error) =>
+                console.error('Error fetching weather data:', error)
+              );
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          }
+        );
+      }
+    };
+
+    fetchWeatherDataByLocation();
+  }, [unitType]);
 
   useEffect(() => {
     if (weatherData.weather && weatherData.weather.length > 0) {
